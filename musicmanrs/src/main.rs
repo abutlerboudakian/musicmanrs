@@ -73,7 +73,13 @@ async fn main() {
     };
 
 
-    let mut client = Client::builder(token).event_handler(Handler).framework(framework).register_songbird().await.expect("Error creating client");
+    let mut client = Client::builder(&token)
+        .event_handler(Handler)
+        .framework(framework)
+        .register_songbird()
+        .await
+        .expect("Err creating client");
+
 
     let lava_client = LavalinkClient::builder(bot_id)
         .set_host("0.0.0.0:2333")
