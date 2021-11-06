@@ -43,6 +43,11 @@ async fn main() {
     let token = env::var("DISCORD_TOKEN").expect("token");
     let mut client = Client::builder(token).event_handler(Handler).framework(framework).await.expect("Error creating client");
 
+    {
+        let mut data = client.data.write().await;
+        data.insert::<ShardManagerContainer>(Arc::clone(&client.shard_manager));
+    }
+
     if let Err(why) = client.start().await {
         println!("An error occurred while running the client: {:?}", why);
     }
