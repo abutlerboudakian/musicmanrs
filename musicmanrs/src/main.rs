@@ -75,7 +75,7 @@ async fn main() {
 
     let mut client = Client::builder(token).event_handler(Handler).framework(framework).register_songbird().await.expect("Error creating client");
 
-    let lava_client = LavalinkClient::builder(bot_id).set_host("0.0.0.0").set_password(env::var("LAVALINK_PASSWORD").unwrap_or_else(|_| "youshallnotpass".to_string())).build(LavalinkHandler).await.expect("Unable to connect to Lavalink.");
+    let lava_client = LavalinkClient::builder(bot_id).set_host("0.0.0.0:2333").set_password(env::var("LAVALINK_PASSWORD").unwrap_or_else(|_| "youshallnotpass".to_string())).build(LavalinkHandler).await.expect("Unable to connect to Lavalink.");
 
     {
         let mut data = client.data.write().await;
