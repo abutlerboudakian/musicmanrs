@@ -6,5 +6,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+tracing = "0.1"
 tokio = { version = "1.13.0", features = ["full"] }
-serenity = "0.10"
+serenity = { version = "0.10", features = ["client", "cache", "standard_framework", "voice"] }
+songbird = { version = "0.2", features = ["serenity-rustls", "gateway"] }
+
+[dependencies.lavalink-rs]
+git = "https://gitlab.com/vicky5124/lavalink-rs/"
+branch = "master"
+features = ["rustls", "serenity"]
