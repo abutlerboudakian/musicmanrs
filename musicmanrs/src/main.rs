@@ -82,7 +82,7 @@ async fn main() {
 
 
     let lava_client = LavalinkClient::builder(bot_id)
-        .set_host("0.0.0.0:2333")
+        .set_host("127.0.0.1:2333")
         .set_password(
             env::var("LAVALINK_PASSWORD").unwrap_or_else(|_| "youshallnotpass".to_string()),
         )
