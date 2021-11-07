@@ -100,7 +100,7 @@ async fn main() {
     let lava_client = LavalinkClient::builder(bot_id)
         .set_host("localhost").set_port(8080)
         .set_password(
-            String::from("youshallnotpass"),
+            String::from(""),
         )
         .build(LavalinkHandler)
         .await.unwrap();
