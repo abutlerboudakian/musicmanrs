@@ -13,7 +13,8 @@ use serenity::framework::standard::{
     Args,
     macros::{
         command,
-        group
+        group,
+        hook
     }
 };
 use tokio::sync::Mutex;
@@ -55,13 +56,28 @@ impl LavalinkEventHandler for LavalinkHandler {
     }
 }
 
+#[hook]
+async fn after(_ctx: &Context, _msg: &Message, command_name: &str, command_result: CommandResult) {
+    match command_result {
+        Err(why) => println!(
+            "Command '{}' returned error {:?} => {}",
+            command_name, why, why
+        ),
+        _ => (),
+    }
+}
+
 #[group]
-#[commands(ping)]
+#[commands(ping, join, leave, play, now_playing, skip, ping)]
 struct General;
 
 #[tokio::main]
 async fn main() {
-    let framework = StandardFramework::new().configure(|c| c.prefix("!")).group(&GENERAL_GROUP);
+    let framework = StandardFramework::new()
+        .configure(|c| c.prefix("!"))
+        .after(after)
+        .group(&GENERAL_GROUP);
+
 
     let token = env::var("DISCORD_TOKEN").expect("token");
 
